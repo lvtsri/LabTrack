@@ -33,6 +33,12 @@ class AuthenticatedSessionController extends Controller
             return redirect()->route('dosen.dashboard');
         }
 
+        $user = Auth::user()->load('detailUser');
+
+        if (!$user->hasCompletedAcademicData()) {
+            return redirect()->route('mahasiswa.lengkapi-data');
+        }
+
         return redirect()->route('mahasiswa.dashboard');
     }
 

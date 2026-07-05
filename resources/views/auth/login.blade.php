@@ -41,7 +41,7 @@
                     <div>
                         <div class="relative">
                             <i class="fa-solid fa-lock absolute left-6 top-1/2 -translate-y-1/2 text-gray-500 text-xl"></i>
-                            <input id="password" name="password" type="password" required autocomplete="current-password"
+                            <input id="password" name="password" type="password" placeholder="Password" required autocomplete="current-password"
                                 class="w-full border border-black rounded-full py-3 pl-16 pr-6 text-sm outline-none focus:border-blue-500">                 
                         </div>
                         @error('password')
