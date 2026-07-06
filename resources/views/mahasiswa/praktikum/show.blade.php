@@ -16,13 +16,13 @@
     @endif
 
     <div class="rounded-[22px] bg-gradient-to-r from-[#5E8BCF] to-[#D39DD3] px-8 py-7 text-white shadow-sm">
-        <h1 class="text-[26px] font-bold leading-tight">
+        <h1 class="text-lg font-bold leading-tight">
             {{ $praktikum->nama_praktikum }}
         </h1>
-        <p class="mt-4 text-[17px] font-semibold">
+        <p class="mt-4 text-sm font-semibold">
             Kelas: {{ $praktikum->kelas?->nama_kelas ?? 'Tidak tersedia' }}
         </p>
-        <p class="mt-2 text-[17px]">
+        <p class="mt-2 text-sm">
             Pengajar: {{ $praktikum->dosen?->name ?? 'Tidak tersedia' }}
         </p>
     </div>
@@ -36,17 +36,17 @@
         <section class="mt-7 rounded-xl border border-[#dedfe4] bg-white px-8 py-8 shadow-[0_2px_5px_rgba(0,0,0,0.18)]">
             <div class="grid gap-6 lg:grid-cols-[1fr_330px]">
                 <div>
-                    <h2 class="text-[20px] font-bold leading-snug text-black">
+                    <h2 class="text-base font-bold leading-snug text-black">
                         Sesi {{ $pertemuan->sesi }} - {{ $pertemuan->judul }}
                     </h2>
 
                     @if($pertemuan->deskripsi)
-                        <p class="mt-4 text-[17px] leading-relaxed text-[#8f8f95]">
+                        <p class="mt-4 text-sm leading-relaxed text-[#8f8f95]">
                             {{ $pertemuan->deskripsi }}
                         </p>
                     @endif
 
-                    <div class="mt-8 space-y-5 text-[18px]">
+                    <div class="mt-8 space-y-5 text-sm">
                         <div class="grid gap-3 sm:grid-cols-[78px_1fr] sm:items-center">
                             <p class="font-medium text-black">Materi:</p>
 
@@ -86,7 +86,7 @@
                     </div>
 
                     @if($deadline)
-                        <p class="mt-7 text-[18px] font-medium text-[#ff545d]">
+                        <p class="mt-7 text-sm font-medium text-[#ff545d]">
                             Deadline:
                             {{ $deadline->isToday() ? 'Hari ini' : $deadline->translatedFormat('j F Y') }}
                             {{ $deadline->format('H:i') }}
@@ -97,16 +97,16 @@
                 <div class="flex flex-col items-end justify-between gap-10 text-right">
                     <div>
                         @if($deadline)
-                            <p class="text-[18px] font-medium text-[#86868b]">
+                            <p class="text-sm font-medium text-[#86868b]">
                                 {{ $deadline->translatedFormat('l, j F Y') }}
                             </p>
-                            <p class="mt-2 text-[17px] text-[#86868b]">
+                            <p class="mt-2 text-sm text-[#86868b]">
                                 {{ $deadline->format('H:i') }}
                             </p>
                         @endif
 
                         @if($pertemuan->wajib_laporan)
-                            <p class="mt-8 text-[18px] font-semibold {{ $sudahMengumpulkan ? 'text-[#13b981]' : 'text-[#ff545d]' }}">
+                            <p class="mt-8 text-sm font-semibold {{ $sudahMengumpulkan ? 'text-[#13b981]' : 'text-[#ff545d]' }}">
                                 &bull; {{ $sudahMengumpulkan ? 'Sudah dikumpulkan' : 'Belum mengumpulkan' }}
                             </p>
                         @endif
@@ -118,9 +118,9 @@
                             data-upload-open
                             data-action="{{ route('mahasiswa.praktikum.laporan.store', [$praktikum->id_praktikum, $pertemuan->id_pertemuan]) }}"
                             data-title="Sesi {{ $pertemuan->sesi }} - {{ $pertemuan->judul }}"
-                            class="inline-flex h-[76px] w-[250px] items-center justify-center gap-4 rounded-[18px] border-2 border-[#6687ff] bg-white text-[18px] font-semibold text-[#3f6df6] transition hover:bg-[#f5f7ff]"
+                            class="inline-flex h-[46px] w-[200px] items-center justify-center gap-4 rounded-[18px] border-2 border-[#6687ff] bg-white text-base font-semibold text-[#3f6df6] transition hover:bg-[#f5f7ff]"
                         >
-                            <i class="fa-solid fa-arrow-up-from-bracket text-2xl"></i>
+                            <i class="fa-solid fa-arrow-up-from-bracket text-lg"></i>
                             Upload
                         </button>
                     @endif
@@ -138,7 +138,7 @@
 
 <div id="uploadModal" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/50 px-6">
     <div class="w-full max-w-[1160px] rounded-[18px] bg-white px-12 py-10 shadow-2xl">
-        <h2 class="text-center text-[26px] font-bold text-black">
+        <h2 class="text-center text-base font-bold text-black">
             Upload Files
         </h2>
 
@@ -161,19 +161,19 @@
                     required
                 >
 
-                <p class="text-[24px] font-semibold text-[#85858a]">
+                <p class="text-lg font-semibold text-[#85858a]">
                     Drag and drop files here
                 </p>
-                <p class="mt-10 text-[24px] font-semibold text-[#85858a]">
+                <p class="mt-10 text-sm font-semibold text-[#85858a]">
                     OR
                 </p>
 
                 <span class="mt-9 inline-flex h-[64px] min-w-[290px] items-center justify-center gap-4 rounded-lg bg-[#558be1] px-8 text-[22px] font-semibold text-white transition hover:bg-[#477bd0]">
-                    <i class="fa-solid fa-arrow-up-from-bracket text-2xl"></i>
+                    <i class="fa-solid fa-arrow-up-from-bracket text-base"></i>
                     Browse File
                 </span>
 
-                <p id="selectedFileName" class="mt-6 text-[15px] font-medium text-[#666]">
+                <p id="selectedFileName" class="mt-6 text-base font-medium text-[#666]">
                     PDF saja, maksimal 10 MB.
                 </p>
             </label>
@@ -186,14 +186,14 @@
                 <button
                     type="button"
                     id="closeUploadModal"
-                    class="h-[58px] min-w-[175px] rounded-[16px] border-2 border-[#333] bg-white px-10 text-[22px] font-semibold text-black transition hover:bg-gray-100"
+                    class="h-[58px] min-w-[175px] rounded-[16px] border-2 border-[#333] bg-white px-10 text-base font-semibold text-black transition hover:bg-gray-100"
                 >
                     Batal
                 </button>
 
                 <button
                     type="submit"
-                    class="h-[58px] min-w-[175px] rounded-[16px] bg-[#df3d43] px-10 text-[22px] font-bold text-white transition hover:bg-[#ca3036]"
+                    class="h-[58px] min-w-[175px] rounded-[16px] bg-[#df3d43] px-10 text-base font-bold text-white transition hover:bg-[#ca3036]"
                 >
                     Kirim
                 </button>

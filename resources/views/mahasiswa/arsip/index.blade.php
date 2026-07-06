@@ -9,21 +9,18 @@
 @endphp
 
 <div class="mt-4 ml-[210px] max-w-[1460px]">
-    <h1 class="mb-4 text-[24px] font-bold text-black">
-        Arsip Laporan Praktikum
+    <h1 class="mb-2 text-lg font-bold text-black">
+        Arsip
     </h1>
 
-    <p class="text-[20px] text-[#333]">
+    <p class="text-sm text-gray-500">
         Semua laporan yang telah Anda kumpulkan tersimpan di sini.
     </p>
 
-    <hr class="mt-5 border-[#b8b8bd]">
+    <hr class="mt-4 border-[#b8b8bd]">
 
-    <form method="GET" action="{{ route('mahasiswa.arsip.index') }}" class="mt-8 mb-12 grid gap-5 lg:grid-cols-[280px_330px_1fr_82px]">
-        <select
-            name="praktikum_id"
-            class="h-[62px] w-full rounded-xl border border-[#bfc0c5] bg-white px-8 text-[19px] font-medium text-[#8d8d8d] outline-none focus:border-[#6687ff]"
-        >
+    <form method="GET" action="{{ route('mahasiswa.arsip.index') }}" class="mt-8 mb-8 grid gap-3 lg:grid-cols-[280px_330px_1fr_82px]">
+        <select name="praktikum_id" class="h-[40px] w-full rounded-xl border border-[#bfc0c5] bg-white px-4 text-sm font-medium text-[#8d8d8d] outline-none focus:border-[#6687ff]">
             <option value="">Kelas Praktikum</option>
             @foreach($praktikumOptions as $praktikum)
                 <option value="{{ $praktikum->id_praktikum }}" @selected((string) $selectedPraktikum === (string) $praktikum->id_praktikum)>
@@ -32,42 +29,30 @@
             @endforeach
         </select>
 
-        <select
-            name="status"
-            class="h-[62px] w-full rounded-xl border border-[#bfc0c5] bg-white px-8 text-[19px] font-medium text-[#8d8d8d] outline-none focus:border-[#6687ff]"
-        >
+        <select name="status" class="h-[40px] w-full rounded-xl border border-[#bfc0c5] bg-white px-4 text-sm font-medium text-[#8d8d8d] outline-none focus:border-[#6687ff]">
             <option value="">Status Kelas Praktikum</option>
             <option value="acc" @selected($selectedStatus === 'acc')>Selesai</option>
             <option value="belum_direview" @selected($selectedStatus === 'belum_direview')>Belum direview</option>
         </select>
 
-        <input
-            type="text"
-            name="q"
-            value="{{ $search }}"
-            class="h-[62px] w-full rounded-xl border border-[#bfc0c5] bg-white px-6 text-[19px] outline-none focus:border-[#6687ff]"
-            placeholder=""
-        >
+        <input type="text" name="q" value="{{ $search }}" class="h-[40px] w-full rounded-xl border border-[#bfc0c5] bg-white px-6 text-base outline-none focus:border-[#6687ff]" placeholder="">
 
-        <button
-            type="submit"
-            class="flex h-[62px] w-[82px] items-center justify-center rounded-xl bg-[#6688c6] text-white transition hover:bg-[#5578b8]"
-        >
-            <i class="fa-solid fa-magnifying-glass text-[30px]"></i>
+        <button type="submit" class="flex h-[40px] w-[75px] items-center justify-center rounded-xl bg-[#6688c6] text-white transition hover:bg-[#5578b8]">
+            <i class="fa-solid fa-magnifying-glass text-base"></i>
         </button>
     </form>
 
     @forelse($arsipGroups as $title => $reports)
         @continue($reports->isEmpty())
 
-        <h2 class="mb-4 text-[24px] font-bold text-black">
+        <h2 class="mb-4 text-base font-bold text-black">
             {{ $title }}
         </h2>
 
         <div class="mb-10 overflow-hidden rounded-[18px] border border-[#dedfe4] bg-white shadow-[0_2px_5px_rgba(0,0,0,0.18)]">
             <table class="w-full table-fixed">
                 <thead class="bg-[#f7f7f8]">
-                    <tr class="h-[74px] text-center text-[18px] font-bold text-black">
+                    <tr class="h-[74px] text-center text-sm font-semibold text-black">
                         <th class="w-[36%]">Praktikum</th>
                         <th class="w-[16%]">Sesi</th>
                         <th class="w-[18%]">Status</th>
@@ -78,7 +63,7 @@
 
                 <tbody>
                     @foreach($reports as $laporan)
-                        <tr class="h-[82px] text-center text-[17px] font-semibold text-black odd:bg-white even:bg-[#f8f8f9]">
+                        <tr class="h-[82px] text-center text-sm font-semibold text-black odd:bg-white even:bg-[#f8f8f9]">
                             <td class="px-8 text-left">
                                 {{ $laporan->pertemuan?->praktikum?->nama_praktikum ?? 'Tidak tersedia' }}
                             </td>
@@ -107,13 +92,13 @@
             </table>
         </div>
     @empty
-        <div class="rounded-[18px] border border-[#dedfe4] bg-white px-8 py-12 text-center text-[18px] font-medium text-[#8d8d8d] shadow-sm">
+        <div class="rounded-[18px] border border-[#dedfe4] bg-white px-8 py-12 text-center text-base font-medium text-[#8d8d8d] shadow-sm">
             Belum ada laporan yang tersimpan.
         </div>
     @endforelse
 
     @if(collect($arsipGroups)->every(fn ($reports) => $reports->isEmpty()))
-        <div class="rounded-[18px] border border-[#dedfe4] bg-white px-8 py-12 text-center text-[18px] font-medium text-[#8d8d8d] shadow-sm">
+        <div class="rounded-[18px] border border-[#dedfe4] bg-white px-8 py-12 text-center text-base font-medium text-[#8d8d8d] shadow-sm">
             Tidak ada laporan yang sesuai dengan filter.
         </div>
     @endif
