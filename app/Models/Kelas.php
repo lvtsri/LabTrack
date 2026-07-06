@@ -19,6 +19,11 @@ class Kelas extends Model
         return $this->hasMany(DetailUser::class, 'kelas_id', 'id_kelas');
     }
 
+    public function mahasiswa()
+    {
+        return $this->hasMany(DetailUser::class, 'kelas_id', 'id_kelas');
+    }
+
     public function praktikum()
     {
         return $this->hasMany(Praktikum::class, 'kelas_id', 'id_kelas');

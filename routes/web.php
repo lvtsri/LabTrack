@@ -40,18 +40,19 @@ Route::middleware(['auth', 'role:mahasiswa'])
     ->prefix('mahasiswa')
     ->group(function () {
         Route::get('/dashboard', [MahasiswaDashboardController::class, 'index'])->name('mahasiswa.dashboard');
-        Route::get('/praktikum', [MahasiswaPraktikumController::class, 'index']);
-        Route::get('/praktikum/{id}', [MahasiswaPraktikumController::class, 'show']);
-        Route::get('/arsip', [ArsipController::class, 'index']);
+
+        Route::get('/praktikum', [MahasiswaPraktikumController::class, 'index'])->name('mahasiswa.praktikum.index');
+        Route::get('/praktikum/{praktikum}', [MahasiswaPraktikumController::class, 'show'])->name('mahasiswa.praktikum.show');
+        Route::post('/praktikum/{praktikum}/pertemuan/{pertemuan}/laporan', [MahasiswaPraktikumController::class, 'uploadLaporan'])->name('mahasiswa.praktikum.laporan.store');
+
+        Route::get('/arsip', [ArsipController::class, 'index'])->name('mahasiswa.arsip.index');
+
         // Route::get('/profil', [MahasiswaProfilController::class, 'index']);
         Route::get('/profil', [MahasiswaProfilController::class, 'index'])->name('mahasiswa.profil');
         Route::put('/profil', [MahasiswaProfilController::class, 'update'])->name('mahasiswa.profil.update');
 
-        Route::get('/lengkapi-data', [LengkapiDataController::class, 'create'])
-            ->name('mahasiswa.lengkapi-data');
-
-        Route::post('/lengkapi-data', [LengkapiDataController::class, 'store'])
-            ->name('mahasiswa.lengkapi-data.store');
+        Route::get('/lengkapi-data', [LengkapiDataController::class, 'create'])->name('mahasiswa.lengkapi-data');
+        Route::post('/lengkapi-data', [LengkapiDataController::class, 'store'])->name('mahasiswa.lengkapi-data.store');
     });
 
 /*

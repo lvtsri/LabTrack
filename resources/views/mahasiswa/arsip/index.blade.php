@@ -2,183 +2,121 @@
 
 @section('content')
 
-<div class="mt-4 ml-[210px]">
+@php
+    $selectedPraktikum = request('praktikum_id');
+    $selectedStatus = request('status');
+    $search = request('q');
+@endphp
 
-    <h1 class="text-lg font-bold mb-2">
-        Arsip
+<div class="mt-4 ml-[210px] max-w-[1460px]">
+    <h1 class="mb-4 text-[24px] font-bold text-black">
+        Arsip Laporan Praktikum
     </h1>
 
-    <p class="text-sm text-gray-500">
+    <p class="text-[20px] text-[#333]">
         Semua laporan yang telah Anda kumpulkan tersimpan di sini.
     </p>
 
-    <hr class="border-gray-400 mt-4 mb-6">
+    <hr class="mt-5 border-[#b8b8bd]">
 
-    {{-- Filter --}}
-    <div class="flex gap-4 mb-10">
-
+    <form method="GET" action="{{ route('mahasiswa.arsip.index') }}" class="mt-8 mb-12 grid gap-5 lg:grid-cols-[280px_330px_1fr_82px]">
         <select
-            class="w-64 px-4 py-3 border rounded-xl bg-white text-gray-500 focus:outline-none">
-            <option>Kelas Praktikum</option>
+            name="praktikum_id"
+            class="h-[62px] w-full rounded-xl border border-[#bfc0c5] bg-white px-8 text-[19px] font-medium text-[#8d8d8d] outline-none focus:border-[#6687ff]"
+        >
+            <option value="">Kelas Praktikum</option>
+            @foreach($praktikumOptions as $praktikum)
+                <option value="{{ $praktikum->id_praktikum }}" @selected((string) $selectedPraktikum === (string) $praktikum->id_praktikum)>
+                    {{ $praktikum->nama_praktikum }}
+                </option>
+            @endforeach
         </select>
 
         <select
-            class="w-64 px-4 py-3 border rounded-xl bg-white text-gray-500 focus:outline-none">
-            <option>Status Kelas Praktikum</option>
+            name="status"
+            class="h-[62px] w-full rounded-xl border border-[#bfc0c5] bg-white px-8 text-[19px] font-medium text-[#8d8d8d] outline-none focus:border-[#6687ff]"
+        >
+            <option value="">Status Kelas Praktikum</option>
+            <option value="acc" @selected($selectedStatus === 'acc')>Selesai</option>
+            <option value="belum_direview" @selected($selectedStatus === 'belum_direview')>Belum direview</option>
         </select>
 
         <input
             type="text"
-            class="flex-1 px-4 py-3 border rounded-xl focus:outline-none"
+            name="q"
+            value="{{ $search }}"
+            class="h-[62px] w-full rounded-xl border border-[#bfc0c5] bg-white px-6 text-[19px] outline-none focus:border-[#6687ff]"
             placeholder=""
         >
 
         <button
-            class="w-16 rounded-xl bg-blue-500 text-white flex items-center justify-center hover:bg-blue-600">
-            🔍
+            type="submit"
+            class="flex h-[62px] w-[82px] items-center justify-center rounded-xl bg-[#6688c6] text-white transition hover:bg-[#5578b8]"
+        >
+            <i class="fa-solid fa-magnifying-glass text-[30px]"></i>
         </button>
+    </form>
 
-    </div>
+    @forelse($arsipGroups as $title => $reports)
+        @continue($reports->isEmpty())
 
-    {{-- Hari ini --}}
-    <h2 class="text-base font-semibold mb-4">Hari ini</h2>
+        <h2 class="mb-4 text-[24px] font-bold text-black">
+            {{ $title }}
+        </h2>
 
-    <div class="bg-white rounded-3xl shadow-md overflow-hidden mb-10">
+        <div class="mb-10 overflow-hidden rounded-[18px] border border-[#dedfe4] bg-white shadow-[0_2px_5px_rgba(0,0,0,0.18)]">
+            <table class="w-full table-fixed">
+                <thead class="bg-[#f7f7f8]">
+                    <tr class="h-[74px] text-center text-[18px] font-bold text-black">
+                        <th class="w-[36%]">Praktikum</th>
+                        <th class="w-[16%]">Sesi</th>
+                        <th class="w-[18%]">Status</th>
+                        <th class="w-[18%]">Tanggal</th>
+                        <th class="w-[12%]">File</th>
+                    </tr>
+                </thead>
 
-        <table class="w-full">
+                <tbody>
+                    @foreach($reports as $laporan)
+                        <tr class="h-[82px] text-center text-[17px] font-semibold text-black odd:bg-white even:bg-[#f8f8f9]">
+                            <td class="px-8 text-left">
+                                {{ $laporan->pertemuan?->praktikum?->nama_praktikum ?? 'Tidak tersedia' }}
+                            </td>
+                            <td>
+                                {{ $laporan->pertemuan?->sesi ?? '-' }}
+                            </td>
+                            <td class="{{ $laporan->status === 'acc' ? 'text-[#0fbd58]' : 'text-red-500' }}">
+                                {{ $laporan->status_label }}
+                            </td>
+                            <td>
+                                {{ $laporan->tanggal_upload?->format('d-m-Y') ?? '-' }}
+                            </td>
+                            <td>
+                                <a
+                                    href="{{ asset('storage/'.$laporan->file_laporan) }}"
+                                    target="_blank"
+                                    class="mx-auto inline-flex min-h-[42px] items-center justify-center gap-2 rounded-full border border-[#c1c1c6] bg-[#fbfbfc] px-5 text-[16px] font-medium text-[#222] transition hover:bg-gray-50"
+                                >
+                                    <i class="fa-regular fa-file text-xl"></i>
+                                    PDF
+                                </a>
+                            </td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
+    @empty
+        <div class="rounded-[18px] border border-[#dedfe4] bg-white px-8 py-12 text-center text-[18px] font-medium text-[#8d8d8d] shadow-sm">
+            Belum ada laporan yang tersimpan.
+        </div>
+    @endforelse
 
-            <thead class="bg-gray-100">
-                <tr class="text-center h-16">
-                    <th>Praktikum</th>
-                    <th>Sesi</th>
-                    <th>Status</th>
-                    <th>Tanggal</th>
-                    <th>File</th>
-                </tr>
-            </thead>
-
-            <tbody>
-                <tr class="text-center h-28">
-                    <td>Pemrograman Berbasis Framework</td>
-                    <td>3</td>
-                    <td class="text-red-500 font-medium">
-                        Belum direview
-                    </td>
-                    <td>05-03-2026</td>
-
-                    <td>
-                        <div class="flex flex-col gap-2 items-center">
-                            <button
-                                class="border rounded-full px-4 py-2 flex items-center gap-2 hover:bg-gray-50">
-                                📄 PDF
-                            </button>
-                            <button
-                                class="border rounded-full px-4 py-2 flex items-center gap-2 hover:bg-gray-50">
-                                📄 PDF
-                            </button>
-
-                        </div>
-                    </td>
-                </tr>
-            </tbody>
-
-        </table>
-
-    </div>
-
-    {{-- Seminggu lalu --}}
-    <h2 class="text-base font-semibold mb-4">
-        Seminggu yang lalu
-    </h2>
-
-    <div class="bg-white rounded-3xl shadow-md overflow-hidden mb-10">
-
-        <table class="w-full">
-
-            <thead class="bg-gray-100">
-                <tr class="text-center h-16">
-                    <th>Praktikum</th>
-                    <th>Sesi</th>
-                    <th>Status</th>
-                    <th>Tanggal</th>
-                    <th>File</th>
-                </tr>
-            </thead>
-
-            <tbody>
-
-                @for($i = 0; $i < 3; $i++)
-
-                <tr class="text-center h-20 border-t">
-                    <td>Pemrograman Berbasis Framework</td>
-                    <td>3</td>
-                    <td class="text-green-500 font-medium">
-                        Selesai
-                    </td>
-                    <td>05-03-2026</td>
-                    <td>
-                        <button
-                            class="border rounded-full px-4 py-2 flex items-center gap-2 mx-auto hover:bg-gray-50">
-                            📄 PDF
-                        </button>
-                    </td>
-                </tr>
-                @endfor
-            </tbody>
-        </table>
-    </div>
-
-    {{-- Sebulan lalu --}}
-    <h2 class="text-base font-semibold mb-4">
-        Sebulan yang lalu
-    </h2>
-
-    <div class="bg-white rounded-3xl shadow-md overflow-hidden mb-10">
-
-        <table class="w-full">
-
-            <thead class="bg-gray-100">
-                <tr class="text-center h-16">
-                    <th>Praktikum</th>
-                    <th>Sesi</th>
-                    <th>Status</th>
-                    <th>Tanggal</th>
-                    <th>File</th>
-                </tr>
-            </thead>
-
-            <tbody>
-
-                @for($i = 0; $i < 2; $i++)
-
-                <tr class="text-center h-20 border-t">
-
-                    <td>Pemrograman Berbasis Framework</td>
-                    <td>3</td>
-
-                    <td class="text-green-500 font-medium">
-                        Selesai
-                    </td>
-
-                    <td>05-03-2026</td>
-
-                    <td>
-                        <button
-                            class="border rounded-full px-4 py-2 flex items-center gap-2 mx-auto hover:bg-gray-50">
-                            📄 PDF
-                        </button>
-                    </td>
-
-                </tr>
-
-                @endfor
-
-            </tbody>
-
-        </table>
-
-    </div>
-
+    @if(collect($arsipGroups)->every(fn ($reports) => $reports->isEmpty()))
+        <div class="rounded-[18px] border border-[#dedfe4] bg-white px-8 py-12 text-center text-[18px] font-medium text-[#8d8d8d] shadow-sm">
+            Tidak ada laporan yang sesuai dengan filter.
+        </div>
+    @endif
 </div>
 
 @endsection

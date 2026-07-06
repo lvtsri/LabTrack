@@ -43,13 +43,15 @@
 
         const closeBtn = document.getElementById('closeModal');
 
-        openBtn.addEventListener('click', () => {
-            modal.classList.remove('hidden');
-        });
+        if (modal && openBtn && closeBtn) {
+            openBtn.addEventListener('click', () => {
+                modal.classList.remove('hidden');
+            });
 
-        closeBtn.addEventListener('click', () => {
-            modal.classList.add('hidden');
-        });
+            closeBtn.addEventListener('click', () => {
+                modal.classList.add('hidden');
+            });
+        }
 
     </script>
 

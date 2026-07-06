@@ -18,4 +18,31 @@ class Pertemuan extends Model
         'wajib_laporan',
         'deadline'
     ];
+
+    public function praktikum()
+    {
+        return $this->belongsTo(
+            Praktikum::class,
+            'praktikum_id',
+            'id_praktikum'
+        );
+    }
+
+    public function materi()
+    {
+        return $this->hasMany(
+            Materi::class,
+            'pertemuan_id',
+            'id_pertemuan'
+        );
+    }
+
+    public function laporan()
+    {
+        return $this->hasMany(
+            Laporan::class,
+            'pertemuan_id',
+            'id_pertemuan'
+        );
+    }
 }

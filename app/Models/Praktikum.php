@@ -9,7 +9,14 @@ class Praktikum extends Model
     protected $table = 'praktikum';
 
     protected $primaryKey = 'id_praktikum';
+    public $timestamps = true;
+    protected $keyType = 'int';
 
+    public function getRouteKeyName()
+    {
+        return 'id_praktikum';
+    }
+    
     protected $fillable = [
         'nama_praktikum',
         'kelas_id',
@@ -25,18 +32,6 @@ class Praktikum extends Model
     public function dosen()
     {
         return $this->belongsTo(User::class, 'dosen_id');
-    }
-
-    public function mahasiswa()
-    {
-        return $this->belongsToMany(
-            User::class,
-            'praktikum_mahasiswa',
-            'praktikum_id',
-            'mahasiswa_id',
-            'id_praktikum',
-            'id'
-        );
     }
 
     public function pertemuan()

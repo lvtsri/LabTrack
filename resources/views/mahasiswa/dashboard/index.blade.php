@@ -18,7 +18,7 @@
             </p>
 
             <h2 class="text-3xl font-bold text-center">
-                5
+                {{ $praktikumAktif }}
             </h2>
         </div>
 
@@ -28,7 +28,7 @@
             </p>
 
             <h2 class="text-3xl font-bold text-center">
-                16
+                {{ $totalLaporanDikumpulkan }}
             </h2>
         </div>
 
@@ -38,7 +38,7 @@
             </p>
 
             <h2 class="text-3xl font-bold text-center">
-                3
+                {{ $laporanBelumDikumpulkan }}
             </h2>
         </div>
 
@@ -59,43 +59,28 @@
 
         <div class="grid grid-cols-3 gap-6">
 
-            @for ($i = 0; $i < 3; $i++)
+            @forelse ($praktikumTerbaru as $praktikum)
+                <a
+                    href="{{ route('mahasiswa.praktikum.show', $praktikum->id_praktikum) }}"
+                    class="block bg-gradient-to-br from-[#4171BD] to-purple-300 rounded-2xl p-6 text-white h-[140px] hover:shadow-lg hover:-translate-y-1 transition"
+                >
+                    <h3 class="text-base font-semibold mb-6 line-clamp-2">
+                        {{ $praktikum->nama_praktikum }}
+                    </h3>
 
-            <div class="bg-gradient-to-br from-[#4171BD] to-purple-300 rounded-2xl p-6 text-white h-[140px]">
-
-                <h3 class="text-base font-semibold mb-6">
-                    Praktikum Pemrograman Berbasis Framework
-                </h3>
-
-                <p class=" text-sm text-white/80">
-                    Fajar Mahardika, S.Kom., M.Kom.
-                </p>
-
-            </div>
-
-            @endfor
+                    <p class="text-sm text-white/80">
+                        {{ $praktikum->dosen?->name ?? 'Dosen belum tersedia' }}
+                    </p>
+                </a>
+            @empty
+                <div class="col-span-3 bg-white rounded-2xl p-8 border text-center text-gray-400">
+                    Belum ada praktikum aktif.
+                </div>
+            @endforelse
 
         </div>
 
     </div>
-
-    {{-- DEADLINE --}}
-    @php
-        $deadlines = [
-            [
-                'judul' => 'Praktikum Pemrograman Framework',
-                'tanggal' => 'Hari ini - 23.59'
-            ],
-            [
-                'judul' => 'Praktikum Basis Data',
-                'tanggal' => '18 April 2026 - 23.59'
-            ],
-            [
-                'judul' => 'Praktikum Mobile',
-                'tanggal' => '19 April 2026 - 23.59'
-            ],
-        ];
-    @endphp
 
     <div>
 
@@ -105,27 +90,36 @@
 
         <div class="bg-white rounded-2xl p-6 py-2 border">
 
-            @foreach ($deadlines as $deadline)
+            @forelse ($deadlineMendatang as $deadline)
+                @php
+                    $deadlineDate = \Carbon\Carbon::parse($deadline->deadline)->locale('id');
+                    $badgeColors = ['bg-pink-200', 'bg-orange-200', 'bg-orange-200', 'bg-green-200'];
+                @endphp
 
-            <div class="flex items-center gap-5 py-4 border-b last:border-0">
+                <div class="flex items-center gap-5 py-4 border-b last:border-0">
 
-                <div class="w-8 h-8 rounded-lg bg-pink-200">
+                    <div class="w-8 h-8 rounded-lg {{ $badgeColors[$loop->index] ?? 'bg-blue-200' }}">
+
+                    </div>
+
+                    <div>
+                        <h3 class="text-base font-semibold">
+                            {{ $deadline->praktikum?->nama_praktikum ?? 'Praktikum tidak tersedia' }}
+                        </h3>
+
+                        <p class="text-sm text-gray-400 mt-1">
+                            {{ $deadlineDate->isToday() ? 'Hari ini' : $deadlineDate->translatedFormat('j F Y') }}
+                            - {{ $deadlineDate->format('H.i') }}
+                        </p>
+                    </div>
 
                 </div>
 
-                <div>
-                    <h3 class="text-base font-semibold">
-                        {{ $deadline['judul'] }}
-                    </h3>
-
-                    <p class="text-sm text-gray-400 mt-1">
-                        {{ $deadline['tanggal'] }}
-                    </p>
+            @empty
+                <div class="py-8 text-center text-gray-400">
+                    Tidak ada deadline mendatang.
                 </div>
-
-            </div>
-
-            @endforeach
+            @endforelse
 
         </div>
 
