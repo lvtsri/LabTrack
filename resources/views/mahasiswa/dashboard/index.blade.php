@@ -69,7 +69,7 @@
                     </h3>
 
                     <p class="text-sm text-white/80">
-                        {{ $praktikum->dosen?->name ?? 'Dosen belum tersedia' }}
+                        Dosen : {{ $praktikum->dosen?->name ?? 'Dosen belum tersedia' }}
                     </p>
                 </a>
             @empty

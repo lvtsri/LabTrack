@@ -21,7 +21,7 @@
 
     $fotoProfil = $detail?->foto_profil
         ? asset('storage/' . $detail->foto_profil)
-        : 'https://i.pinimg.com/736x/2b/bb/5e/2bbb5e6059727209596bfeb5bd1360ea.jpg';
+        : asset('images/default-profile.jpg')
 @endphp
 
 <div class="mt-4 ml-[210px]">
@@ -39,7 +39,7 @@
             <div class="flex items-center gap-5">
                 {{-- FOTO --}}
                 <div class="w-20 h-20 rounded-full bg-gray-300 overflow-hidden border flex items-center justify-center">
-                    <img src="{{ $fotoProfil }}" alt="Foto Profil" class="w-full h-full object-cover">
+                    <img src="{{ $fotoProfil }}" class="w-full h-full object-cover">
                 </div>
 
                 {{-- IDENTITAS --}}
@@ -157,22 +157,21 @@
             Edit Informasi Profil
         </h2>
 
-        <form action="{{ route('dosen.profil.update') }}" method="POST">
+        <form action="{{ route('dosen.profil.update') }}" method="POST" enctype="multipart/form-data">
             @csrf
             @method('PUT')
             <div class="flex gap-14">
 
                 {{-- FOTO --}}
                 <div class="flex flex-col items-center">
-
                     <div class="w-40 h-40 rounded-2xl bg-gray-300 overflow-hidden mb-6">
-                        <img src="{{ $fotoProfil }}" class="w-full h-full object-cover">
+                        <img id="previewFoto" src="{{ $fotoProfil }}" class="w-40 h-40 rounded-full object-cover">
                     </div>
 
-                    <button type="button" class="border text-sm px-8 py-2 rounded-2xl hover:bg-gray-100 transition">
+                    <button type="button" id="btnUbahFoto" class="border text-sm px-8 py-2 rounded-2xl hover:bg-gray-100 transition">
                         Ubah Foto
                     </button>
-
+                    <input type="file" id="fotoProfilInput" name="foto_profil" accept="image/*" class="hidden">
                 </div>
 
                 {{-- FORM --}}
@@ -290,6 +289,27 @@
         if (event.target === editModal) {
             editModal.classList.add('hidden');
         }
+    });
+
+    // ubah foto
+    const btn = document.getElementById('btnUbahFoto');
+    const input = document.getElementById('fotoProfilInput');
+    const preview = document.getElementById('previewFoto');
+
+    btn.addEventListener('click', () => {
+        input.click();
+    });
+
+    input.addEventListener('change', function () {
+        if (this.files.length > 0) {
+            const reader = new FileReader();
+            
+            reader.onload = function(e){
+                preview.src = e.target.result;
+            }
+            reader.readAsDataURL(this.files[0]);
+        }
+
     });
 </script>
 
