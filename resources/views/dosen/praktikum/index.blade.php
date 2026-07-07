@@ -19,10 +19,9 @@
 
     <div class="flex justify-end">
         <div class="flex gap-4">
-            <button class="border border-black rounded-2xl px-4 py-2 text-sm hover:bg-gray-100 transition">
+            {{-- <button class="border border-black rounded-2xl px-4 py-2 text-sm hover:bg-gray-100 transition">
                 Edit Kelas
-            </button>
-
+            </button> --}}
             <button id="openModal" class="bg-[#4a62ec] text-white rounded-2xl px-4 py-2 text-sm hover:opacity-90 transition">
                 + Tambah Kelas
             </button>

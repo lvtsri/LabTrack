@@ -2,7 +2,7 @@
 
 @section('content')
 
-<div class="ml-[210px] max-w-[1460px]">
+<div class="mt-4 ml-[210px] mr-8">
     @if(session('success'))
         <div class="mb-5 rounded-2xl bg-green-100 px-5 py-4 text-sm font-medium text-green-700">
             {{ session('success') }}
@@ -59,11 +59,11 @@
             <thead class="bg-[#f7f7f8]">
                 <tr class="h-[74px] text-center text-sm font-bold text-black">
                     <th class="w-[15%]">Nama</th>
-                    <th class="w-[27%]">Praktikum</th>
-                    <th class="w-[10%]">Sesi</th>
-                    <th class="w-[17%]">Status</th>
-                    <th class="w-[15%]">Tanggal</th>
-                    <th class="w-[10%]">File</th>
+                    <th class="w-[25%]">Praktikum</th>
+                    <th class="w-[8%]">Sesi</th>
+                    <th class="w-[15%]">Status</th>
+                    <th class="w-[13%]">Tanggal</th>
+                    <th class="w-[12%]">File</th>
                     <th class="w-[12%]">Aksi</th>
                 </tr>
             </thead>
@@ -78,7 +78,7 @@
                         </td>
                         <td>{{ $item->tanggal_upload?->format('d-m-Y') ?? '-' }}</td>
                         <td>
-                            <a href="{{ asset('storage/'.$item->file_laporan) }}" target="_blank" class="mx-auto inline-flex min-h-[42px] items-center justify-center gap-2 rounded-full border border-[#c1c1c6] bg-[#fbfbfc] px-5 text-[16px] font-medium text-[#222] transition hover:bg-gray-50">
+                            <a href="{{ asset('storage/'.$item->file_laporan) }}" target="_blank" class="inline-flex items-center gap-2 rounded-full border border-2 px-4 py-2 text-sm">
                                 <i class="fa-regular fa-file text-base"></i>
                                 PDF
                             </a>

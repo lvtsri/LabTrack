@@ -18,7 +18,7 @@
             </p>
 
             <h2 class="text-3xl font-bold text-center">
-                5
+                {{ $totalLaporan }}
             </h2>
         </div>
 
@@ -28,7 +28,7 @@
             </p>
 
             <h2 class="text-3xl font-bold text-center">
-                16
+                {{ $belumDireview }}
             </h2>
         </div>
 
@@ -38,7 +38,7 @@
             </p>
 
             <h2 class="text-3xl font-bold text-center">
-                3
+                {{ $jumlahPraktikum }}
             </h2>
         </div>
 
@@ -52,85 +52,93 @@
                 Praktikum yang Diampu
             </h2>
 
-            <a href="/dosen/praktikum" class="text-sm text-blue-400 hover:text-black">
+            <a href="/dosen/praktikum" class="text-sm font-semibold text-blue-400 hover:text-black">
                 Lihat lainnya
             </a>
         </div>
 
-        <div class="grid grid-cols-3 gap-6">
+        <div class="grid grid-cols-3 gap-4">
 
-            {{-- @for ($i = 0; $i < 2; $i++) --}}
-
-            <div class="bg-gradient-to-br from-[#4171BD] to-purple-300 rounded-2xl p-6 text-white h-[140px]">
-                <h3 class="text-base font-semibold mb-6">
-                    Praktikum Pemrograman Berbasis Framework
+            @foreach($praktikum as $item)
+            <div class="bg-[#586ce0] rounded-2xl p-6 text-white h-[125px]">
+                <h3 class="text-base font-semibold mb-2">
+                    {{ $item->nama_praktikum }}
                 </h3>
-                <p class=" text-sm text-white/80">
-                    Fajar Mahardika, S.Kom., M.Kom.
+
+                <p class="text-sm text-white/80">
+                    Semester {{ $item->semester }}
+                </p>
+
+                <p class="text-sm text-white/80">
+                    Kelas {{ $item->kelas->nama_kelas }}
                 </p>
             </div>
-            <div class="bg-gradient-to-br from-[#4171BD] to-purple-300 rounded-2xl p-6 text-white h-[140px]">
-                <h3 class="text-base font-semibold mb-6">
-                    Praktikum Pemrograman Mobile
-                </h3>
-                <p class=" text-sm text-white/80">
-                    Fajar Mahardika, S.Kom., M.Kom.
-                </p>
-            </div>
-
-            {{-- @endfor --}}
-
+            @endforeach
         </div>
-
     </div>
 
-    {{-- DEADLINE --}}
-    @php
-        $deadlines = [
-            [
-                'judul' => 'Praktikum Pemrograman Framework',
-                'tanggal' => 'Hari ini - 23.59'
-            ],
-            [
-                'judul' => 'Praktikum Basis Data',
-                'tanggal' => '18 April 2026 - 23.59'
-            ],
-            [
-                'judul' => 'Praktikum Mobile',
-                'tanggal' => '19 April 2026 - 23.59'
-            ],
-        ];
-    @endphp
+    {{-- LAPORAN  --}}
 
     <div>
+        <div class="flex justify-between items-center mb-4">
+            <h2 class="text-lg font-bold">
+                Laporan Terbaru Masuk
+            </h2>
 
-        <h2 class="text-lg font-bold mb-4">
-            Laporan Terbaru Masuk
-        </h2>
+            <a href="{{ route('dosen.laporan.index') }}"
+                class="text-sm text-blue-400 font-semibold hover:text-black">
+                Lihat lainnya
+            </a>
+        </div>
 
-        <div class="bg-white rounded-2xl p-6 py-2 border">
+        <div class="bg-white rounded-2xl border overflow-hidden">
 
-            @foreach ($deadlines as $deadline)
+            @forelse($laporanTerbaru as $laporan)
+            <div class="flex items-center justify-between px-7 py-5 border-b last:border-0">
+                {{-- kiri --}}
+                <div class="flex items-center gap-4">
+                    {{-- icon --}}
+                    <div class="w-10 h-10 rounded-xl bg-[#F3F4F6] flex items-center justify-center">
+                        <i class="fa-regular fa-file text-gray-600"></i>
+                    </div>
+                    {{-- isi --}}
+                    <div>
+                        <h3 class="font-semibold">
+                            Sesi {{ $laporan->pertemuan->sesi }}
+                            -
+                            {{ $laporan->pertemuan->praktikum->nama_praktikum }}
+                        </h3>
 
-            <div class="flex items-center gap-5 py-4 border-b last:border-0">
+                        <p class="text-sm text-gray-500 mt-1">
+                            Pengirim :
+                            {{ $laporan->mahasiswa->name }}
+                            |
+                            {{ $laporan->pertemuan->praktikum->kelas->nama_kelas }}
+                        </p>
 
-                <div class="w-8 h-8 rounded-lg bg-pink-200">
+                        <p class="mt-1 text-sm {{ $laporan->status=='acc'
+                            ? 'text-green-600'
+                            : 'text-red-500' }}">
 
+                            • {{ $laporan->status_label }}
+                        </p>
+                    </div>
                 </div>
 
-                <div>
-                    <h3 class="text-base font-semibold">
-                        {{ $deadline['judul'] }}
-                    </h3>
+                {{-- kanan --}}
+                <a href="{{ asset('storage/'.$laporan->file_laporan) }}"
+                    target="_blank"
+                    class="text-2xl text-gray-500 hover:text-[#4171BD]">
 
-                    <p class="text-sm text-gray-400 mt-1">
-                        {{ $deadline['tanggal'] }}
-                    </p>
-                </div>
-
+                    <i class="fa-solid fa-arrow-right"></i>
+                </a>
             </div>
 
-            @endforeach
+            @empty
+            <div class="py-12 text-center text-gray-500">
+                Belum ada laporan yang masuk.
+            </div>
+            @endforelse
 
         </div>
 
