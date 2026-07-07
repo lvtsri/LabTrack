@@ -60,16 +60,17 @@ class RegisteredUserController extends Controller
             'role' => $role,
         ]);
 
-        if ($user->role === 'mahasiswa') {
-            $user->detailUser()->create([]);
-        }
+        // if ($user->role === 'mahasiswa') {
+        //     $user->detailUser()->create([]);
+        // }
+        $user->detailUser()->create([]);
         
         event(new Registered($user));
 
         Auth::login($user);
 
         if ($user->role === 'dosen') {
-            return redirect()->route('dosen.dashboard');
+            return redirect()->route('dosen.lengkapi-data');
         }
 
         return redirect()->route('mahasiswa.lengkapi-data');

@@ -29,12 +29,20 @@ class AuthenticatedSessionController extends Controller
         $request->session()->regenerate();
 
         // return redirect()->intended(route('dashboard', absolute: false));
-        if (Auth::user()->role == 'dosen') {
-            return redirect()->route('dosen.dashboard');
-        }
 
         $user = Auth::user()->load('detailUser');
 
+        // dosen
+        if ($user->role == 'dosen') {
+
+            if (!$user->hasCompletedAcademicData()) {
+                return redirect()->route('dosen.lengkapi-data');
+            }
+
+            return redirect()->route('dosen.dashboard');
+        }
+
+        // mahasiswa
         if (!$user->hasCompletedAcademicData()) {
             return redirect()->route('mahasiswa.lengkapi-data');
         }

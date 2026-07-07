@@ -31,19 +31,21 @@
 
     <script>
 
-        const modal = document.getElementById('editModal');
+        {
+            const layoutModal = document.getElementById('editModal');
+            const layoutOpenBtn = document.getElementById('openModal');
+            const layoutCloseBtn = document.getElementById('closeModal');
 
-        const openBtn = document.getElementById('openModal');
+            if (layoutModal && layoutOpenBtn && layoutCloseBtn) {
+                layoutOpenBtn.addEventListener('click', () => {
+                    layoutModal.classList.remove('hidden');
+                });
 
-        const closeBtn = document.getElementById('closeModal');
-
-        openBtn.addEventListener('click', () => {
-            modal.classList.remove('hidden');
-        });
-
-        closeBtn.addEventListener('click', () => {
-            modal.classList.add('hidden');
-        });
+                layoutCloseBtn.addEventListener('click', () => {
+                    layoutModal.classList.add('hidden');
+                });
+            }
+        }
 
     </script>
 

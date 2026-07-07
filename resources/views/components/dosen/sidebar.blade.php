@@ -8,7 +8,7 @@
         <div class="flex flex-col gap-3 px-6">
 
             <a href="/dosen/dashboard" class="flex items-center gap-4 px-5 py-4 rounded-xl text-base font-semibold 
-            {{ request()->is('mahasiswa/dashboard') ? 'bg-gray-100 text-black' : 'text-gray-400 hover:bg-gray-100' }}">
+            {{ request()->is('dosen/dashboard') ? 'bg-gray-100 text-black' : 'text-gray-400 hover:bg-gray-100' }}">
                 <i class="fa-solid fa-house"></i>
                     <span class="text-sm">
                         Dashboard
@@ -16,7 +16,7 @@
             </a>
 
             <a href="/dosen/praktikum" class="flex items-center gap-4 px-5 py-4 rounded-xl font-semibold
-            {{ request()->is('mahasiswa/praktikum*') ? 'bg-gray-100 text-black' : 'text-gray-400 hover:bg-gray-100' }}">
+            {{ request()->is('dosen/praktikum*') ? 'bg-gray-100 text-black' : 'text-gray-400 hover:bg-gray-100' }}">
                 <i class="fa-solid fa-book-open"></i></i>
                     <span class="text-sm">
                         Praktikum
@@ -24,7 +24,7 @@
             </a>
 
             <a href="/dosen/laporan" class="flex items-center gap-4 px-5 py-4 rounded-xl font-semibold
-            {{ request()->is('mahasiswa/arsip') ? 'bg-gray-100 text-black' : 'text-gray-400 hover:bg-gray-100' }}">
+            {{ request()->is('dosen/laporan*') ? 'bg-gray-100 text-black' : 'text-gray-400 hover:bg-gray-100' }}">
                 <i class="fa-solid fa-box-archive"></i>
                     <span class="text-sm">
                         Laporan
@@ -32,7 +32,7 @@
             </a>
 
             <a href="/dosen/profil" class="flex items-center gap-4 px-5 py-4 rounded-xl font-semibold
-            {{ request()->is('mahasiswa/profil') ? 'bg-gray-100 text-black' : 'text-gray-400 hover:bg-gray-100' }}">
+            {{ request()->is('dosen/profil') ? 'bg-gray-100 text-black' : 'text-gray-400 hover:bg-gray-100' }}">
                 <i class="fa-solid fa-user"></i>
                     <span class="text-sm">
                         Profil

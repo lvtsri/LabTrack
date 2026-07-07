@@ -15,8 +15,18 @@ class Pertemuan extends Model
         'sesi',
         'judul',
         'deskripsi',
+        'tanggal_pertemuan',
+        'jam_mulai',
+        'jam_selesai',
         'wajib_laporan',
         'deadline'
+    ];
+
+    protected $casts = [
+        'tanggal_pertemuan' => 'date',
+        'jam_mulai' => 'datetime:H:i',
+        'jam_selesai' => 'datetime:H:i',
+        'deadline' => 'datetime',
     ];
 
     public function praktikum()
@@ -44,5 +54,27 @@ class Pertemuan extends Model
             'pertemuan_id',
             'id_pertemuan'
         );
+    }
+
+    public function getJumlahLaporanMasukAttribute()
+    {
+        return $this->laporan()->count();
+    }
+
+    public function getStatusAttribute()
+    {
+        if (!$this->deadline) {
+            return 'draft';
+        }
+
+        if (now()->lt($this->created_at)) {
+            return 'terjadwal';
+        }
+
+        if (now()->gt($this->deadline)) {
+            return 'selesai';
+        }
+
+        return 'berlangsung';
     }
 }

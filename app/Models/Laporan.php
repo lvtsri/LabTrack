@@ -27,6 +27,11 @@ class Laporan extends Model
         return $this->belongsTo(Pertemuan::class, 'pertemuan_id', 'id_pertemuan');
     }
 
+    public function mahasiswa()
+    {
+        return $this->belongsTo(User::class, 'mahasiswa_id');
+    }
+
     public function getStatusLabelAttribute()
     {
         return $this->status === 'acc' ? 'Selesai' : 'Belum direview';

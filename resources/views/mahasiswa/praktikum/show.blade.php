@@ -118,7 +118,7 @@
                             data-upload-open
                             data-action="{{ route('mahasiswa.praktikum.laporan.store', [$praktikum->id_praktikum, $pertemuan->id_pertemuan]) }}"
                             data-title="Sesi {{ $pertemuan->sesi }} - {{ $pertemuan->judul }}"
-                            class="inline-flex h-[46px] w-[200px] items-center justify-center gap-4 rounded-[18px] border-2 border-[#6687ff] bg-white text-base font-semibold text-[#3f6df6] transition hover:bg-[#f5f7ff]"
+                            class="inline-flex h-[40px] w-[180px] items-center justify-center gap-4 rounded-[18px] border-2 border-[#6687ff] bg-white text-sm font-semibold text-[#3f6df6] transition hover:bg-[#f5f7ff]"
                         >
                             <i class="fa-solid fa-arrow-up-from-bracket text-lg"></i>
                             Upload

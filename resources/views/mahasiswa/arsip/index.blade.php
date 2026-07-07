@@ -45,7 +45,7 @@
     @forelse($arsipGroups as $title => $reports)
         @continue($reports->isEmpty())
 
-        <h2 class="mb-4 text-base font-bold text-black">
+        <h2 class="mb-4 text-sm font-bold text-black">
             {{ $title }}
         </h2>
 
@@ -63,7 +63,7 @@
 
                 <tbody>
                     @foreach($reports as $laporan)
-                        <tr class="h-[82px] text-center text-sm font-semibold text-black odd:bg-white even:bg-[#f8f8f9]">
+                        <tr class="h-[82px] text-center text-sm text-black odd:bg-white even:bg-[#f8f8f9]">
                             <td class="px-8 text-left">
                                 {{ $laporan->pertemuan?->praktikum?->nama_praktikum ?? 'Tidak tersedia' }}
                             </td>
@@ -80,7 +80,7 @@
                                 <a
                                     href="{{ asset('storage/'.$laporan->file_laporan) }}"
                                     target="_blank"
-                                    class="mx-auto inline-flex min-h-[42px] items-center justify-center gap-2 rounded-full border border-[#c1c1c6] bg-[#fbfbfc] px-5 text-[16px] font-medium text-[#222] transition hover:bg-gray-50"
+                                    class="mx-auto inline-flex min-h-[42px] items-center justify-center gap-2 rounded-full border border-[#c1c1c6] bg-[#fbfbfc] px-5 text-sm font-medium text-[#222] transition hover:bg-gray-50"
                                 >
                                     <i class="fa-regular fa-file text-xl"></i>
                                     PDF

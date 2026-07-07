@@ -69,8 +69,20 @@ class User extends Authenticatable
 
     public function hasCompletedAcademicData(): bool
     {
-        return filled($this->detailUser?->nim)
-            && filled($this->detailUser?->program_studi)
-            && filled($this->detailUser?->kelas_id);
+        if (!$this->detailUser) {
+            return false;
+        }
+
+        if ($this->role === 'mahasiswa') {
+            return filled($this->detailUser->nim)
+                && filled($this->detailUser->program_studi)
+                && filled($this->detailUser->kelas_id);
+        }
+
+        if ($this->role === 'dosen') {
+            return filled($this->detailUser->nip);
+        }
+
+        return false;
     }
 }
