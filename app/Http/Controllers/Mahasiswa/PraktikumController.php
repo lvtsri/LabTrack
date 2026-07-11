@@ -66,8 +66,12 @@ class PraktikumController extends Controller
             Storage::disk('public')->delete($laporan->file_laporan);
         }
 
-        $path = $validated['file_laporan']->store(
-            'laporan/'.$user->id,
+        $originalName = $validated['file_laporan']->getClientOriginalName();
+        $safeName = preg_replace('/[\/\\\\:*?"<>|]/', '-', $originalName);
+
+        $path = $validated['file_laporan']->storeAs(
+            'laporan/'.$user->id.'/pertemuan-'.$pertemuan->id_pertemuan,
+            $safeName,
             'public'
         );
 

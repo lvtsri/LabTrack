@@ -138,17 +138,17 @@
             </div>
         </div>
     </div>
+    @if ($errors->any())
+        <div class="mb-4 rounded-xl bg-red-100 text-red-700 p-4">
+            <ul class="text-sm">
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
 </div>
 
-@if ($errors->any())
-    <div class="mb-4 rounded-xl bg-red-100 text-red-700 p-4">
-        <ul class="text-sm">
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    </div>
-@endif
 {{-- MODAL EDIT PROFIL --}}
 <div id="editModal" class="hidden fixed inset-0 bg-black/40 flex items-center justify-center z-50">
     <div class="bg-white w-[1100px] h-[600px] rounded-3xl p-8">

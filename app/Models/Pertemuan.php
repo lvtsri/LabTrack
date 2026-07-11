@@ -63,15 +63,29 @@ class Pertemuan extends Model
 
     public function getStatusAttribute()
     {
-        if (!$this->deadline) {
-            return 'draft';
-        }
-
-        if (now()->lt($this->created_at)) {
+        if (!$this->tanggal_pertemuan || !$this->jam_mulai || !$this->jam_selesai) {
             return 'terjadwal';
         }
 
-        if (now()->gt($this->deadline)) {
+        $timezone = config('app.timezone', 'Asia/Jakarta');
+        $now = now($timezone);
+
+        $tanggal = $this->tanggal_pertemuan->format('Y-m-d');
+        $jamMulai = $this->jam_mulai instanceof \Carbon\CarbonInterface
+            ? $this->jam_mulai->format('H:i:s')
+            : $this->jam_mulai;
+        $jamSelesai = $this->jam_selesai instanceof \Carbon\CarbonInterface
+            ? $this->jam_selesai->format('H:i:s')
+            : $this->jam_selesai;
+
+        $mulai = \Carbon\Carbon::parse($tanggal.' '.$jamMulai, $timezone);
+        $selesai = \Carbon\Carbon::parse($tanggal.' '.$jamSelesai, $timezone);
+
+        if ($now->lt($mulai)) {
+            return 'terjadwal';
+        }
+
+        if ($now->gt($selesai)) {
             return 'selesai';
         }
 

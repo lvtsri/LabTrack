@@ -12,11 +12,9 @@
     <h1 class="mb-2 text-lg font-bold text-black">
         Arsip
     </h1>
-
     <p class="text-sm text-gray-500">
         Semua laporan yang telah Anda kumpulkan tersimpan di sini.
     </p>
-
     <hr class="mt-4 border-[#b8b8bd]">
 
     <form method="GET" action="{{ route('mahasiswa.arsip.index') }}" class="mt-8 mb-8 grid gap-3 lg:grid-cols-[280px_330px_1fr_82px]">

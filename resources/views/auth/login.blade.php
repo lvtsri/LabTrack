@@ -53,14 +53,14 @@
                 </div>
 
                 {{-- FORGOT PASSWORD --}}
-                @if (Route::has('password.request'))
+                {{-- @if (Route::has('password.request'))
                     <div class="flex justify-end mt-5">
                         <a href="{{ route('password.request') }}"
                             class="text-sm hover:underline hover:text-blue-600">
                             Lupa password?
                         </a>
                     </div>
-                @endif
+                @endif --}}
 
                 {{-- BUTTON --}}
                 <button type="submit" class="w-full bg-black text-white py-3 rounded-full text-sm font-semibold mt-6 hover:bg-[#4171BD] transition"> Login </button>

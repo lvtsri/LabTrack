@@ -10,26 +10,26 @@
     @endif
 
     @if(isset($errors) && $errors->any())
-        <div class="mb-5 rounded-2xl bg-red-100 px-5 py-4 text-sm font-medium text-red-700">
+        <div class="mb-2 rounded-2xl bg-red-100 px-5 py-4 text-sm font-medium text-red-700">
             {{ $errors->first() }}
         </div>
     @endif
 
-    <div class="rounded-[22px] bg-gradient-to-r from-[#5E8BCF] to-[#D39DD3] px-8 py-7 text-white shadow-sm">
-        <h1 class="text-[26px] font-bold leading-tight">
+    <div class="rounded-[22px] bg-[#586ce0] px-8 py-7 text-white shadow-sm">
+        <h1 class="text-lg font-bold leading-tight">
             {{ $praktikum->kelas?->nama_kelas }} - {{ $praktikum->nama_praktikum }}
         </h1>
-        <p class="mt-4 text-[17px] font-semibold">
+        <p class="mt-4 text-base">
             Semester {{ $praktikum->semester }}
         </p>
     </div>
 
     <div class="mt-7 flex justify-end gap-3">
-        <button id="openEditPraktikum" class="inline-flex items-center gap-3 rounded-xl bg-[#5d82c2] px-7 py-3 text-[17px] font-semibold text-white transition hover:bg-[#4e73b3]">
+        <button id="openEditPraktikum" class="inline-flex items-center gap-3 rounded-xl bg-[#586ce0] px-7 py-3 text-sm font-semibold text-white transition hover:bg-[#4e73b3]">
             <i class="fa-solid fa-pen-to-square"></i>
             Edit
         </button>
-        <button id="openTambahSesi" class="inline-flex items-center gap-3 rounded-xl bg-[#5d82c2] px-7 py-3 text-[17px] font-semibold text-white transition hover:bg-[#4e73b3]">
+        <button id="openTambahSesi" class="inline-flex items-center gap-3 rounded-xl bg-[#586ce0] px-7 py-3 text-sm font-semibold text-white transition hover:bg-[#4e73b3]">
             <i class="fa-solid fa-plus"></i>
             Tambah Sesi
         </button>
@@ -57,16 +57,16 @@
             <section class="rounded-xl border border-[#dedfe4] bg-white px-8 py-7 shadow-[0_2px_5px_rgba(0,0,0,0.18)]">
                 <div class="grid gap-6 lg:grid-cols-[1fr_330px]">
                     <a href="{{ route('dosen.pertemuan.show', [$praktikum->id_praktikum, $pertemuan->id_pertemuan]) }}" class="block">
-                        <h2 class="text-[20px] font-bold leading-snug text-black">
+                        <h2 class="text-base font-bold leading-snug text-black">
                             Sesi {{ $pertemuan->sesi }} - {{ $pertemuan->judul }}
                         </h2>
 
-                        <div class="mt-5 space-y-4 text-[18px]">
+                        <div class="mt-5 space-y-4 text-sm">
                             <div class="flex flex-wrap items-center gap-3">
                                 <span class="font-medium text-black">Materi:</span>
                                 @forelse($pertemuan->materi as $materi)
-                                    <span class="inline-flex min-h-[46px] items-center gap-3 rounded-lg border border-[#8d8d8d] bg-[#fbfbfc] px-4 py-2 text-[15px] font-medium text-[#222]">
-                                        <i class="fa-solid {{ $materi->icon }} text-lg"></i>
+                                    <span class="inline-flex min-h-[46px] items-center gap-3 rounded-lg border border-[#8d8d8d] bg-[#fbfbfc] px-4 py-2 text-sm font-medium text-[#222]">
+                                        <i class="fa-solid {{ $materi->icon }} text-sm"></i>
                                         {{ $materi->nama_materi }}
                                     </span>
                                 @empty
@@ -94,24 +94,24 @@
                     <div class="flex flex-col items-end justify-between gap-7 text-right">
                         <div>
                             @if($tanggal)
-                                <p class="text-[18px] font-medium text-[#86868b]">
+                                <p class="text-sm font-medium text-[#86868b]">
                                     {{ $tanggal->translatedFormat('l, j F Y') }}
                                 </p>
-                                <p class="mt-2 text-[17px] text-[#86868b]">
+                                <p class="mt-2 text-sm text-[#86868b]">
                                     {{ $pertemuan->jam_mulai ? \Carbon\Carbon::parse($pertemuan->jam_mulai)->format('H:i') : '-' }}
                                     -
                                     {{ $pertemuan->jam_selesai ? \Carbon\Carbon::parse($pertemuan->jam_selesai)->format('H:i') : '-' }}
                                 </p>
                             @endif
 
-                            <span class="mt-4 inline-flex min-w-[126px] justify-center rounded-xl px-5 py-2 text-[16px] {{ $statusClass }}">
+                            <span class="mt-4 inline-flex min-w-[126px] justify-center rounded-xl px-5 py-2 text-sm {{ $statusClass }}">
                                 {{ $statusLabel }}
                             </span>
                         </div>
 
                         <div class="flex flex-col items-end gap-4">
                             @if($deadline)
-                                <p class="text-[18px] font-medium text-[#ff545d]">
+                                <p class="text-sm font-medium text-[#ff545d]">
                                     Deadline: {{ $deadline->translatedFormat('j F Y') }} {{ $deadline->format('H:i') }}
                                 </p>
                             @endif
@@ -132,7 +132,7 @@
                 <form method="POST" action="{{ route('dosen.pertemuan.update', [$praktikum->id_praktikum, $pertemuan->id_pertemuan]) }}" enctype="multipart/form-data" class="max-h-[90vh] w-full max-w-[850px] overflow-y-auto rounded-3xl bg-white p-8">
                     @csrf
                     @method('PUT')
-                    <h2 class="mb-7 text-xl font-bold">Edit Sesi</h2>
+                    <h2 class="mb-7 text-lg font-bold">Edit Sesi</h2>
                     @include('dosen.praktikum.partials.form-pertemuan', ['pertemuan' => $pertemuan])
                 </form>
             </div>

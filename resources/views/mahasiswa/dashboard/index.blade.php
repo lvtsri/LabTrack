@@ -52,7 +52,7 @@
                 Praktikum - Terakhir Dibuka
             </h2>
 
-            <a href="/mahasiswa/praktikum" class="text-sm text-blue-400 hover:text-black">
+            <a href="/mahasiswa/praktikum" class="text-sm font-semibold text-blue-400 hover:text-black">
                 Lihat lainnya
             </a>
         </div>
@@ -62,7 +62,7 @@
             @forelse ($praktikumTerbaru as $praktikum)
                 <a
                     href="{{ route('mahasiswa.praktikum.show', $praktikum->id_praktikum) }}"
-                    class="block bg-gradient-to-br from-[#4171BD] to-purple-300 rounded-2xl p-6 text-white h-[140px] hover:shadow-lg hover:-translate-y-1 transition"
+                    class="block bg-[#586ce0] rounded-2xl p-6 text-white h-[140px] hover:shadow-lg hover:-translate-y-1 transition"
                 >
                     <h3 class="text-base font-semibold mb-6 line-clamp-2">
                         {{ $praktikum->nama_praktikum }}

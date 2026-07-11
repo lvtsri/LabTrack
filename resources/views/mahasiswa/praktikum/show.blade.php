@@ -15,7 +15,7 @@
         </div>
     @endif
 
-    <div class="rounded-[22px] bg-gradient-to-r from-[#5E8BCF] to-[#D39DD3] px-8 py-7 text-white shadow-sm">
+    <div class="rounded-[22px] bg-[#586ce0] px-8 py-7 text-white shadow-sm">
         <h1 class="text-lg font-bold leading-tight">
             {{ $praktikum->nama_praktikum }}
         </h1>
@@ -137,7 +137,7 @@
 </div>
 
 <div id="uploadModal" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/50 px-6">
-    <div class="w-full max-w-[1160px] rounded-[18px] bg-white px-12 py-10 shadow-2xl">
+    <div class="w-full max-w-[1100px] rounded-[18px] bg-white px-12 py-10 shadow-2xl">
         <h2 class="text-center text-base font-bold text-black">
             Upload Files
         </h2>
@@ -147,10 +147,8 @@
         <form id="uploadForm" action="" method="POST" enctype="multipart/form-data" class="mt-9">
             @csrf
 
-            <label
-                id="dropArea"
-                for="file_laporan"
-                class="flex min-h-[430px] cursor-pointer flex-col items-center justify-center rounded-[18px] border-2 border-dashed border-[#858585] bg-white px-6 text-center transition hover:bg-gray-50"
+            <label id="dropArea" for="file_laporan"
+                class="flex min-h-[350px] cursor-pointer flex-col items-center justify-center rounded-[18px] border-2 border-dashed border-[#858585] bg-white px-6 text-center transition hover:bg-gray-50"
             >
                 <input
                     id="file_laporan"
@@ -161,19 +159,19 @@
                     required
                 >
 
-                <p class="text-lg font-semibold text-[#85858a]">
+                <p class="text-base font-semibold text-[#85858a]">
                     Drag and drop files here
                 </p>
-                <p class="mt-10 text-sm font-semibold text-[#85858a]">
+                <p class="mt-5 text-sm font-semibold text-[#85858a]">
                     OR
                 </p>
 
-                <span class="mt-9 inline-flex h-[64px] min-w-[290px] items-center justify-center gap-4 rounded-lg bg-[#558be1] px-8 text-[22px] font-semibold text-white transition hover:bg-[#477bd0]">
+                <span class="mt-5 inline-flex h-[50px] min-w-[250px] items-center justify-center gap-4 rounded-lg bg-[#558be1] px-8 text-base font-semibold text-white transition hover:bg-[#477bd0]">
                     <i class="fa-solid fa-arrow-up-from-bracket text-base"></i>
                     Browse File
                 </span>
 
-                <p id="selectedFileName" class="mt-6 text-base font-medium text-[#666]">
+                <p id="selectedFileName" class="mt-6 text-sm font-medium text-[#666]">
                     PDF saja, maksimal 10 MB.
                 </p>
             </label>
@@ -186,14 +184,14 @@
                 <button
                     type="button"
                     id="closeUploadModal"
-                    class="h-[58px] min-w-[175px] rounded-[16px] border-2 border-[#333] bg-white px-10 text-base font-semibold text-black transition hover:bg-gray-100"
+                    class="h-[40px] min-w-[175px] rounded-[16px] border-2 border-[#333] bg-white px-10 text-sm font-semibold text-black transition hover:bg-gray-100"
                 >
                     Batal
                 </button>
 
                 <button
                     type="submit"
-                    class="h-[58px] min-w-[175px] rounded-[16px] bg-[#df3d43] px-10 text-base font-bold text-white transition hover:bg-[#ca3036]"
+                    class="h-[40px] min-w-[175px] rounded-[16px] bg-[#df3d43] px-10 text-sm font-bold text-white transition hover:bg-[#ca3036]"
                 >
                     Kirim
                 </button>

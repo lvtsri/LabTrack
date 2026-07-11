@@ -8,7 +8,7 @@
     <div class="mb-8">
         <div>
             <h1 class="text-lg font-bold">
-                Kelas Praktikum
+                Praktikum
             </h1>
             <p class="text-sm text-gray-500">
                 Kelola seluruh kelas praktikum yang Anda ampu.

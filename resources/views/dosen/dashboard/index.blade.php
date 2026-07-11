@@ -57,22 +57,17 @@
             </a>
         </div>
 
-        <div class="grid grid-cols-3 gap-4">
-
+        <div class="grid grid-cols-4 gap-4">
             @foreach($praktikum as $item)
-            <div class="bg-[#586ce0] rounded-2xl p-6 text-white h-[125px]">
-                <h3 class="text-base font-semibold mb-2">
+            <a href="{{ route('dosen.praktikum.show', $item) }}" class="bg-[#586ce0] rounded-2xl p-6 text-white h-[125px]">
+                <h3 class="text-base font-semibold">
                     {{ $item->nama_praktikum }}
                 </h3>
 
                 <p class="text-sm text-white/80">
-                    Semester {{ $item->semester }}
+                    Semester {{ $item->semester }} | {{ $item->kelas->nama_kelas }}
                 </p>
-
-                <p class="text-sm text-white/80">
-                    Kelas {{ $item->kelas->nama_kelas }}
-                </p>
-            </div>
+            </a>
             @endforeach
         </div>
     </div>

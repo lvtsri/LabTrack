@@ -9,16 +9,16 @@
         </div>
     @endif
 
-    <div class="mb-6">
-        <h1 class="text-lg font-bold mb-2">
-            Praktikum
-        </h1>
-        <p class="text-sm text-gray-500">Tinjau dan kelola laporan praktikum mahasiswa.</p>
-        <hr class="border-gray-400 mt-4">
-    </div>
+    <h1 class="mb-2 text-lg font-bold text-black">
+        Laporan
+    </h1>
+    <p class="text-sm text-gray-500">
+        Tinjau dan kelola laporan praktikum mahasiswa.
+    </p>
+    <hr class="mt-4 border-[#b8b8bd]">
 
-    <form method="GET" action="{{ route('dosen.laporan.index') }}" class="mb-9 grid gap-5 lg:grid-cols-[220px_230px_180px_1fr_82px]">
-        <select name="praktikum_id" class="h-[40px] rounded-xl border border-[#bfc0c5] bg-white px-8 text-sm font-medium text-[#8d8d8d] outline-none focus:border-[#6687ff]">
+    <form method="GET" action="{{ route('dosen.laporan.index') }}" class="mt-8 mb-8 grid gap-5 lg:grid-cols-[220px_230px_180px_1fr_82px]">
+        <select name="praktikum_id" class="h-[40px] rounded-xl border border-[#bfc0c5] bg-white px-5 text-sm font-medium text-[#8d8d8d] outline-none focus:border-[#6687ff]">
             <option value="">Praktikum</option>
             @foreach($praktikumOptions as $praktikum)
                 <option value="{{ $praktikum->id_praktikum }}" @selected((string) request('praktikum_id') === (string) $praktikum->id_praktikum)>
@@ -27,7 +27,7 @@
             @endforeach
         </select>
 
-        <select name="pertemuan_id" class="h-[40px] rounded-xl border border-[#bfc0c5] bg-white px-8 text-sm font-medium text-[#8d8d8d] outline-none focus:border-[#6687ff]">
+        <select name="pertemuan_id" class="h-[40px] rounded-xl border border-[#bfc0c5] bg-white px-5 text-sm font-medium text-[#8d8d8d] outline-none focus:border-[#6687ff]">
             <option value="">Pertemuan</option>
             @foreach($pertemuanOptions as $pertemuan)
                 <option value="{{ $pertemuan->id_pertemuan }}" @selected((string) request('pertemuan_id') === (string) $pertemuan->id_pertemuan)>
@@ -36,7 +36,7 @@
             @endforeach
         </select>
 
-        <select name="status" class="h-[40px] rounded-xl border border-[#bfc0c5] bg-white px-8 text-sm font-medium text-[#8d8d8d] outline-none focus:border-[#6687ff]">
+        <select name="status" class="h-[40px] rounded-xl border border-[#bfc0c5] bg-white px-5 text-sm font-medium text-[#8d8d8d] outline-none focus:border-[#6687ff]">
             <option value="">Status</option>
             <option value="belum_direview" @selected(request('status') === 'belum_direview')>Belum direview</option>
             <option value="acc" @selected(request('status') === 'acc')>Selesai</option>
@@ -69,7 +69,7 @@
             </thead>
             <tbody>
                 @forelse($laporan as $item)
-                    <tr class="h-[82px] text-center text-sm odd:bg-white even:bg-[#f8f8f9]">
+                    <tr class="h-[70px] text-center text-sm odd:bg-white even:bg-[#f8f8f9]">
                         <td>{{ $item->mahasiswa?->name ?? '-' }}</td>
                         <td>{{ $item->pertemuan?->praktikum?->nama_praktikum ?? '-' }}</td>
                         <td>{{ $item->pertemuan?->sesi ?? '-' }}</td>
