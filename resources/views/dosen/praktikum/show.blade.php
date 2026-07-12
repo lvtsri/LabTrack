@@ -60,6 +60,12 @@
                         <h2 class="text-base font-bold leading-snug text-black">
                             Sesi {{ $pertemuan->sesi }} - {{ $pertemuan->judul }}
                         </h2>
+                        
+                        @if($pertemuan->deskripsi)
+                            <p class="mt-4 text-sm leading-relaxed text-[#8f8f95]">
+                                {{ $pertemuan->deskripsi }}
+                            </p>
+                        @endif
 
                         <div class="mt-5 space-y-4 text-sm">
                             <div class="flex flex-wrap items-center gap-3">
